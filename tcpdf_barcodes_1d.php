@@ -360,6 +360,14 @@ class TCPDFBarcode {
 				$arrcode = $this->barcode_codabar($code);
 				break;
 			}
+			case 'CODABARA': { // CODABAR
+				$arrcode = $this->barcode_codabar($code, 'A');
+				break;
+			}
+			case 'CODABARB': { // CODABAR
+				$arrcode = $this->barcode_codabar($code, 'B');
+				break;
+			}
 			case 'CODE11': { // CODE 11
 				$arrcode = $this->barcode_code11($code);
 				break;
@@ -1816,7 +1824,7 @@ class TCPDFBarcode {
 	 * @return array barcode representation.
 	 * @protected
 	 */
-	protected function barcode_codabar($code) {
+	protected function barcode_codabar($code, $type = '') {
 		$chr = array(
 			'0' => '11111221',
 			'1' => '11112211',
@@ -1843,7 +1851,7 @@ class TCPDFBarcode {
 		$k = 0;
 		$w = 0;
 		$seq = '';
-		$code = 'A'.strtoupper($code).'A';
+		$code = $type.strtoupper($code).$type;
 		$len = strlen($code);
 		for ($i = 0; $i < $len; ++$i) {
 			if (!isset($chr[$code[$i]])) {

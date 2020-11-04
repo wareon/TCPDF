@@ -1,5 +1,5 @@
 {
-  "name": "tecnickcom/tcpdf",
+  "name": "wareon/tcpdf",
   "version": "6.3.5",
   "homepage": "http://www.tcpdf.org/",
   "type": "library",
@@ -16,8 +16,8 @@
   "license": "LGPL-3.0-only",
   "authors": [
     {
-      "name": "Nicola Asuni",
-      "email": "info@tecnick.com",
+      "name": "wareon",
+      "email": "wenzongxian@126.com",
       "role": "lead"
     }
   ],

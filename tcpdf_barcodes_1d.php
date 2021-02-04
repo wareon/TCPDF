@@ -356,16 +356,12 @@ class TCPDFBarcode {
 				$arrcode = $this->barcode_imb_pre($code);
 				break;
 			}
+            case 'CODABAR-A':
+            case 'CODABAR-B':
 			case 'CODABAR': { // CODABAR
-				$arrcode = $this->barcode_codabar($code);
-				break;
-			}
-			case 'CODABARA': { // CODABAR
-				$arrcode = $this->barcode_codabar($code, 'A');
-				break;
-			}
-			case 'CODABARB': { // CODABAR
-				$arrcode = $this->barcode_codabar($code, 'B');
+			    $typeAB = str_replace('CODABAR', '', $type);
+			    $typeAB = trim($typeAB, '-');
+				$arrcode = $this->barcode_codabar($code, $typeAB);
 				break;
 			}
 			case 'CODE11': { // CODE 11
@@ -1826,27 +1822,32 @@ class TCPDFBarcode {
 	 */
 	protected function barcode_codabar($code, $type = '') {
 		$chr = array(
-			'0' => '11111331',
-			'1' => '11113311',
-			'2' => '11131131',
-			'3' => '33111111',
-			'4' => '11311311',
-			'5' => '31111311',
-			'6' => '13111131',
-			'7' => '13113111',
-			'8' => '13311111',
-			'9' => '31131111',
-			'-' => '11133111',
-			'$' => '11331111',
-			':' => '31113131',
-			'/' => '31311131',
-			'.' => '31313111',
-			'+' => '11333331',
-			'A' => '11331311',
-			'B' => '13131131',
-			'C' => '11131331',
-			'D' => '11133311'
+			'0' => '11111221',
+			'1' => '11112211',
+			'2' => '11121121',
+			'3' => '22111111',
+			'4' => '11211211',
+			'5' => '21111211',
+			'6' => '12111121',
+			'7' => '12112111',
+			'8' => '12211111',
+			'9' => '21121111',
+			'-' => '11122111',
+			'$' => '11221111',
+			':' => '21112121',
+			'/' => '21211121',
+			'.' => '21212111',
+			'+' => '11222221',
+			'A' => '11221211',
+			'B' => '12121121',
+			'C' => '11121221',
+			'D' => '11122211'
 		);
+		if($type == 'A' || $type == 'B'){
+            foreach ($chr as $key=>$value) {
+                $chr[$key] = str_replace('2', '3', $value);
+            }
+        }
 		$bararray = array('code' => $code, 'maxw' => 0, 'maxh' => 1, 'bcode' => array());
 		$k = 0;
 		$w = 0;
